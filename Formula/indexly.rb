@@ -3,8 +3,8 @@ class Indexly < Formula
 
   desc "Local semantic file indexing and search tool"
   homepage "https://github.com/kimsgent/project-indexly"
-  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.1.1.tar.gz"
-  sha256 "45154c7899418563921cf320a4c0b2f986d5657de6823b3a402252d813034420"
+  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.1.2.tar.gz"
+  sha256 "a866ba6bb6fc312ed3a41b0f4cdfe546d9fc4e47c5d2523089fcb18a26a3cd58"
   license "MIT"
 
   depends_on "python@3.11"
@@ -14,6 +14,6 @@ class Indexly < Formula
   end
 
   test do
-    system bin/"indexly", "--help"
+    system "#{bin}/indexly", "--help"
   end
 end
