@@ -161,19 +161,19 @@ class Indexly < Formula
     # CRITICAL: OpenBLAS setup FIRST (works on Linux)
     openblas = Formula["openblas"]
     ENV.prepend_path "PKG_CONFIG_PATH", "#{openblas.opt_lib}/pkgconfig"
-    ENV.prepend "LDFLAGS", "-L#{openblas.opt_lib}/lib" 
+    ENV.prepend "LDFLAGS", "-L#{openblas.opt_lib}/lib"
     ENV.prepend "CPPFLAGS", "-I#{openblas.opt_lib}/include"
     ENV["BLAS"] = "openblas"
     ENV["LAPACK"] = "openblas"
 
-    # Verify OpenBLAS detection (Linux debug)
-    system "pkg-config", "--exists", "openblas" || raise "OpenBLAS pkg-config failed"
-    
-    # Patch SciPy meson.build BEFORE pip runs
+    # Verify OpenBLAS detection (FIXED: added parentheses)
+    system "pkg-config", "--exists", "openblas" || (raise "OpenBLAS pkg-config failed!")
+
+    # Patch SciPy meson.build BEFORE pip runs (FIXED: proper regex)
     resource("scipy").stage do
       inreplace "meson.build", 
-        /dependency\('OpenBLAS', static: ?get_option\('default_library'\)/,
-        "dependency('OpenBLAS', fallback: ['openblas', 'openblas_dep'], static: get_option('default_library'))"
+        /dependency\('OpenBLAS',/,
+        "dependency('OpenBLAS', fallback: ['openblas', 'openblas_dep'])"
     end
 
     virtualenv_install_with_resources
