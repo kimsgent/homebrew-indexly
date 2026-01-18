@@ -7,12 +7,8 @@ class Indexly < Formula
   sha256 "17b78d0423383a5159c509bab8bbeb85a59ca6a39c0566f5419d7871bbc643e1"
   license "MIT"
 
-  depends_on "python@3.11"
-  depends_on "numpy"
-  depends_on "pandas"
-  depends_on "scipy"
-  depends_on "matplotlib"
   depends_on "tesseract"
+  depends_on "python@3.11"
 
   resource "nltk" do
     url "https://files.pythonhosted.org/packages/f9/76/3a5e4312c19a028770f86fd7c058cf9f4ec4321c6cf7526bab998a5b683c/nltk-3.9.2.tar.gz"
