@@ -19,11 +19,9 @@ class Indexly < Formula
     (libexec/"bin").mkpath
     indexly_script = Dir.glob(libexec/"**/*indexly*").first
     system python, "-c", "import shutil; shutil.move('#{indexly_script}', '#{libexec}/bin/indexly')"
-
     # Set executable permissions and write proper shebang
-    (libexec/"bin/indexly").chmod 0755
+    (libexec/"bin/indexly").chmod 0o755
     (libexec/"bin/indexly").write_shebang python.to_s
-
     bin.install_symlink libexec/"bin/indexly"
   end
 
