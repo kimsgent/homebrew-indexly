@@ -8,8 +8,10 @@ class Indexly < Formula
   license "MIT"
 
   depends_on "python@3.11"
-  depends_on "python@3.11"
   depends_on "tesseract"
+  depends_on "openblas"
+  depends_on "pkgconf"
+
 
     resource "numpy" do
         url "https://files.pythonhosted.org/packages/24/62/ae72ff66c0f1fd959925b4c11f8c2dea61f47f6acaea75a08512cdfe3fed/numpy-2.4.1.tar.gz"
@@ -152,6 +154,10 @@ class Indexly < Formula
     end
 
   def install
+    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openblas"].opt_lib/"pkgconfig"
+    ENV["BLAS"] = "openblas"
+    ENV["LAPACK"] = "openblas"
+
     virtualenv_install_with_resources
   end
 
