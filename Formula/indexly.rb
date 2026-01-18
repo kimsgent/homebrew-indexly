@@ -1,5 +1,4 @@
 class Indexly < Formula
-  include Language::Python::Virtualenv
 
   desc "Local semantic file indexing and search tool"
   homepage "https://github.com/kimsgent/project-indexly"
@@ -11,12 +10,9 @@ class Indexly < Formula
   depends_on "tesseract"
 
   def install
-    venv = virtualenv_create(libexec, Formula["python@3.11"].opt_bin/"python3.11")
-    
-    # Install from local source + requirements
-    system libexec/"bin/pip", "install", "--no-cache-dir", "--only-binary=:all:",
-      "-r", "requirements.txt", "."
-    
+    python = Formula["python@3.11"].opt_bin/"python3.11"
+    system python, "-m", "pip", "install", "--prefix=#{libexec}",
+                   "--no-cache-dir", "-r", "requirements.txt", "."
     bin.install_symlink libexec/"bin/indexly"
   end
 
