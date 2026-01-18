@@ -7,10 +7,14 @@ class Indexly < Formula
   sha256 "ad8bea8d51fc6d581a6d43110644ac09ff33ecc8d4fc2f527e2d2ef32fd77542"
   license "MIT"
 
-  depends_on "python@3.11"
+  
   depends_on "tesseract"
   depends_on "openblas"
   depends_on "pkgconf"
+ 
+  # Linux-safe system libs
+  uses_from_macos "libffi"
+  uses_from_macos "python@3.11"
 
 
     resource "numpy" do
@@ -154,9 +158,23 @@ class Indexly < Formula
     end
 
   def install
-    ENV.prepend_path "PKG_CONFIG_PATH", Formula["openblas"].opt_lib/"pkgconfig"
+    # CRITICAL: OpenBLAS setup FIRST (works on Linux)
+    openblas = Formula["openblas"]
+    ENV.prepend_path "PKG_CONFIG_PATH", "#{openblas.opt_lib}/pkgconfig"
+    ENV.prepend "LDFLAGS", "-L#{openblas.opt_lib}/lib" 
+    ENV.prepend "CPPFLAGS", "-I#{openblas.opt_lib}/include"
     ENV["BLAS"] = "openblas"
     ENV["LAPACK"] = "openblas"
+
+    # Verify OpenBLAS detection (Linux debug)
+    system "pkg-config", "--exists", "openblas" || raise "OpenBLAS pkg-config failed"
+    
+    # Patch SciPy meson.build BEFORE pip runs
+    resource("scipy").stage do
+      inreplace "meson.build", 
+        /dependency\('OpenBLAS', static: ?get_option\('default_library'\)/,
+        "dependency('OpenBLAS', fallback: ['openblas', 'openblas_dep'], static: get_option('default_library'))"
+    end
 
     virtualenv_install_with_resources
   end
