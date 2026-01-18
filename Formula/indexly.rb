@@ -12,13 +12,11 @@ class Indexly < Formula
 
   def install
     venv = virtualenv_create(libexec, Formula["python@3.11"].opt_bin/"python3.11")
-
-    system libexec/"bin/pip", "install",
-      "--no-cache-dir",
-      "--only-binary=:all:",
-      "--upgrade",
-      "indexly"
-
+    
+    # Install from local source + requirements
+    system libexec/"bin/pip", "install", "--no-cache-dir", "--only-binary=:all:",
+      "-r", "requirements.txt", "."
+    
     bin.install_symlink libexec/"bin/indexly"
   end
 
