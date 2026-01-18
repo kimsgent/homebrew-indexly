@@ -7,11 +7,11 @@ class Indexly < Formula
   sha256 "ad8bea8d51fc6d581a6d43110644ac09ff33ecc8d4fc2f527e2d2ef32fd77542"
   license "MIT"
 
-  depends_on "python@3.12"
+  depends_on "python@3.11"
   depends_on "tesseract"
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
+    venv = virtualenv_create(libexec, Formula["python@3.11"].opt_bin/"python3.11")
 
     system libexec/"bin/pip", "install",
       "--no-cache-dir",
