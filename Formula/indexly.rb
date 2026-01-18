@@ -169,13 +169,6 @@ class Indexly < Formula
     # Verify OpenBLAS detection (FIXED: added parentheses)
     system "pkg-config", "--exists", "openblas" || (raise "OpenBLAS pkg-config failed!")
 
-    # Patch SciPy meson.build BEFORE pip runs (FIXED: proper regex)
-    resource("scipy").stage do
-      inreplace "meson.build", 
-        /dependency\('OpenBLAS',/,
-        "dependency('OpenBLAS', fallback: ['openblas', 'openblas_dep'])"
-    end
-
     virtualenv_install_with_resources
   end
 
