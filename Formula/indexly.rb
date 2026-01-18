@@ -64,7 +64,7 @@ class Indexly < Formula
     sha256 "6292b1c5186d356bba669ef9f7f051757099565ad9ada5dd630bd9de5fa7fb86"
   end
 
-  resource "extract_msg" do
+  resource "extract-msg" do
     url "https://files.pythonhosted.org/packages/5e/65/c70afb3b119a44b3ee36b029485dc15326cf3a7c50da19a1ecbbf949c5d1/extract_msg-0.55.0.tar.gz"
     sha256 "cf08283498c3dfcc7f894dad1579f52e3ced9fb76b865c2355cbe757af8a54e1"
   end
