@@ -24,7 +24,7 @@ class Indexly < Formula
     system python, "-c", "import shutil; shutil.move('#{Dir.glob(libexec/'**'/'indexly')[0]}', '#{libexec}/bin/indexly')"
     
     # CRITICAL: Fix shebang to Homebrew Python
-    libexec/"bin/indexly".chmod 0755
+    libexec/"bin/indexly".chmod "0755"
     libexec/"bin/indexly".write_shebang python
     
     bin.install_symlink libexec/"bin/indexly"
