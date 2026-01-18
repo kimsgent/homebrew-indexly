@@ -12,14 +12,18 @@ class Indexly < Formula
   def install
     python = Formula["python@3.11"].opt_bin/"python3.11"
     ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python3.11/site-packages"
-    system python, "-m", "pip", "install", "--no-cache-dir", "--target=#{libexec}", "-r", "requirements.txt", "."
-    
+
+    system python, "-m", "pip", "install", "--no-cache-dir",
+           "--target=#{libexec}", "-r", "requirements.txt", "."
+
     (libexec/"bin").mkpath
     indexly_script = Dir.glob(libexec/"**/*indexly*").first
     system python, "-c", "import shutil; shutil.move('#{indexly_script}', '#{libexec}/bin/indexly')"
-    
-    libexec/"bin/indexly".chmod 0755
-    libexec/"bin/indexly".write_shebang python.to_s  # ← Convert Pathname to string
+
+    # Set executable permissions and write proper shebang
+    (libexec/"bin/indexly").chmod 0755
+    (libexec/"bin/indexly").write_shebang python.to_s
+
     bin.install_symlink libexec/"bin/indexly"
   end
 
@@ -28,3 +32,4 @@ class Indexly < Formula
     system bin/"indexly", "--help"
   end
 end
+
