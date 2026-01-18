@@ -7,15 +7,11 @@ class Indexly < Formula
   sha256 "ad8bea8d51fc6d581a6d43110644ac09ff33ecc8d4fc2f527e2d2ef32fd77542"
   license "MIT"
 
-  
+  depends_on "python@3.11"
   depends_on "tesseract"
   depends_on "openblas"
   depends_on "pkgconf"
- 
-  # Linux-safe system libs
-  uses_from_macos "libffi"
-  uses_from_macos "python@3.11"
-
+  depends_on "llvm"
 
     resource "numpy" do
         url "https://files.pythonhosted.org/packages/24/62/ae72ff66c0f1fd959925b4c11f8c2dea61f47f6acaea75a08512cdfe3fed/numpy-2.4.1.tar.gz"
@@ -158,7 +154,7 @@ class Indexly < Formula
     end
 
   def install
-    # CRITICAL: OpenBLAS setup FIRST (works on Linux)
+    # OpenBLAS setup FIRST (fixes SciPy/numpy Linuxbrew builds)
     openblas = Formula["openblas"]
     ENV.prepend_path "PKG_CONFIG_PATH", "#{openblas.opt_lib}/pkgconfig"
     ENV.prepend "LDFLAGS", "-L#{openblas.opt_lib}/lib"
@@ -166,7 +162,7 @@ class Indexly < Formula
     ENV["BLAS"] = "openblas"
     ENV["LAPACK"] = "openblas"
 
-    # Verify OpenBLAS detection (FIXED: added parentheses)
+    # Verify OpenBLAS detection
     system "pkg-config", "--exists", "openblas" || (raise "OpenBLAS pkg-config failed!")
 
     virtualenv_install_with_resources
