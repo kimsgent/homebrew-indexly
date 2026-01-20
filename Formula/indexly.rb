@@ -16,7 +16,6 @@ class Indexly < Formula
                    "-r", "requirements.txt", "."
     bin.install_symlink libexec/"bin/indexly"
   end
-
   test do
     system bin/"indexly", "--version"
     system bin/"indexly", "--help"
