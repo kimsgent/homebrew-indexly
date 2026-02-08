@@ -1,8 +1,8 @@
 class Indexly < Formula
   desc "Local semantic file indexing and search tool"
   homepage "https://github.com/kimsgent/project-indexly"
-  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.2.0.tar.gz"
-  sha256 "ceddf70869d7b8aadfcabab0589b9db966e414a571e5af660a44d9c4b7e19a3e"
+  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.2.1.tar.gz"
+  sha256 "d2a6bbeb95a8d24f324fce59a257ad9a9faf71604e916f0d52ab3f87b62e7c51"
   license "MIT"
 
   depends_on "python@3.11"
