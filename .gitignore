@@ -17,7 +17,6 @@ Very small and intentional:
 
 # Logs
 *.log
-<<<<<<< HEAD
-=======
 id_ed25519_homebrew
->>>>>>> 1bef71bb2bfe82ecac3f81595796ac3d03f807a4
+# virutal environment
+.venv-indexly/
