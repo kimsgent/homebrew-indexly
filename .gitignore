@@ -14,9 +14,12 @@ Very small and intentional:
 # Ruby / Brew
 *.gem
 .bundle/
+Gemfile
+Gemfile.lock
 
 # Logs
 *.log
 id_ed25519_homebrew
 # virutal environment
 .venv-indexly/
+
