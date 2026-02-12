@@ -13,17 +13,11 @@ class Indexly < Formula
   depends_on 'tesseract'
 
   def install
-    # Create a virtualenv inside libexec using Python 3.11
-    virtualenv_create(libexec, 'python3.11')
-
-    # Force pip to use only wheels for faster install
-    ENV['PIP_ONLY_BINARY'] = ':all:'
-
-    # Install all packages from your requirements.txt
-    system libexec / 'bin/pip', 'install', '--no-cache-dir',
+    python = Formula['python@3.11'].opt_bin / 'python3.11'
+    system python, '-m', 'pip', 'install',
+           "--prefix=#{libexec}",
+           '--no-cache-dir',
            '-r', 'requirements.txt', '.'
-
-    # Symlink the executable to bin
     bin.install_symlink libexec / 'bin/indexly'
   end
 
