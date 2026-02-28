@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 class Indexly < Formula
   include Language::Python::Virtualenv
 
   desc "Local semantic file indexing and search tool"
   homepage "https://github.com/kimsgent/project-indexly"
-  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.2.1.tar.gz"
-  sha256 "d2a6bbeb95a8d24f324fce59a257ad9a9faf71604e916f0d52ab3f87b62e7c51"
+  url "https://github.com/kimsgent/project-indexly/archive/refs/tags/v1.2.3.tar.gz"
+  sha256 "e8bf853735d28a3a0707b4a68f2781ea248854caabc38397def7881dd3f0281c"
   license "MIT"
 
   depends_on "python@3.11"
